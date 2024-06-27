@@ -1,0 +1,261 @@
+### Test APIs of userParticular
+## Getters ---------------------------------------------------------
+### /api/userParticular
+GET {{host}}/api/userParticular/list
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/businessUsers
+GET {{host}}/api/businessUsers/list
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/propostas
+GET {{host}}/api/propostas/list
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/formacoes
+GET {{host}}/api/formacoes/list
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/comentarios
+GET {{host}}/api/comentarios/list
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/competencias
+GET {{host}}/api/competencias/list
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/utilizadorparcial
+DELETE {{host}}/api/userParticular/delete/byUsername/johnWick
+x-api-token: 12345
+Authorization: Basic admin 123
+
+## Search ---------------------------------------------------------
+### /api/userParticular
+GET {{host}}/api/userParticular/searchId/1
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/businessUsers
+GET {{host}}/api/businessUsers/searchId/1
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/propostas
+GET {{host}}/api/propostas/search/1
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/formacao
+GET {{host}}/api/formacoes/searchId/2
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/experiencias
+GET {{host}}/api/experiencias/searchId/1
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/competencias
+GET {{host}}/api/competencias/searchId/1
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/comentarios
+GET {{host}}/api/comentarios/listOfUser/1
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+## Add ---------------------------------------------------------
+### /api/userParticular
+POST {{host}}/api/userParticular/add
+Content-Type: application/json
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+{
+  "id": 2,
+  "email": "JohnWick@example.com",
+  "name": "John Wick",
+  "username": "johnWick",
+  "gender": "Male",
+  "profissao": "Engineer",
+  "contacto": "123456789",
+  "idade": 30,
+  "password": "securepassword"
+}
+
+### /api/businessUsers
+POST {{host}}/api/businessUsers/add
+Content-Type: application/json
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+{
+  "id": 2,
+  "email": "dsdadsexample@example.com",
+  "name": "John Doe",
+  "username": "johndasdsa222doe",
+  "gender": "Male",
+  "profissao": "Engineer",
+  "contacto": "123456789",
+  "age": 30,
+  "password": "securepassword",
+  "empresa": "Auren"
+}
+
+### /api/propostas
+POST {{host}}/api/propostas/add
+Content-Type: application/json
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+{
+  "id": 2,
+  "area": "Engenharia Informática",
+  "descricao": "Alguem que quer mesmo trabalhar",
+  "skills": "Python,Java,C,Otimista",
+  "author": {
+    "id": 2,
+    "email": "dsdadsexample@example.com",
+    "name": "John Doe",
+    "user": "johndasdsa222doe",
+    "gender": "Male",
+    "profissao": "Engineer",
+    "contacto": "123456789",
+    "age": 30,
+    "password": "securepassword",
+    "empresa": "Auren"
+  }
+}
+
+### /api/formacoes
+POST {{host}}/api/formacoes/add
+Content-Type: application/json
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+{
+  "id": 2,
+  "nome": "Python",
+  "tipoformacao": "Linguagem de Programação",
+  "instituto": "Udemy",
+  "duracao": "2 meses",
+  "author": {
+    "id": 2,
+    "email": "JohnWick@example.com",
+    "name": "John Wick",
+    "username": "johnWick",
+    "gender": "Male",
+    "profissao": "Engineer",
+    "numeroDeTelemovel": "123456789",
+    "idade": 30,
+    "password": "securepassword"
+  }
+}
+
+### /api/experiencias
+POST {{host}}/api/experiencias/add
+Content-Type: application/json
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+{
+  "id": 2,
+  "cidade": "Lisewqeqwboa",
+  "profissao": "Engenheiro Informático",
+  "nomeempresa": "ewqeqwewq",
+  "duracao": "5 aneqweqwos",
+  "author": {
+    "id": 2,
+    "email": "JohnWick@example.com",
+    "name": "John Wick",
+    "username": "johnWick",
+    "gender": "Male",
+    "profissao": "Engineer",
+    "numeroDeTelemovel": "123456789",
+    "idade": 30,
+    "password": "securepassword"
+  }
+}
+
+### /api/competencias
+POST {{host}}/api/competencias/add
+Content-Type: application/json
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+{
+  "id": 2,
+  "nome": "Python",
+  "type": "Linguagem de programação",
+  "author": {
+    "id": 2,
+    "email": "JohnWick@example.com",
+    "name": "John Wick",
+    "username": "johnWick",
+    "gender": "Male",
+    "profissao": "Engineer",
+    "numeroDeTelemovel": "123456789",
+    "idade": 30,
+    "password": "securepassword"
+  }
+}
+
+### /api/comentarios
+POST {{host}}/api/comentarios/createComment
+Content-Type: application/json
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+{
+  "id": 1,
+  "username": "admin",
+  "comentario": "Odeio isto paiiiiiii",
+  "datetime": "25/06/2024"
+}
+
+
+### api/editUser
+PUT {{host}}/api/userParticular/editUser
+Content-Type: application/json
+x-api-token: 12345
+Authorization: Basic admin 123
+
+{
+  "id": 2,
+  "email": "JohnWick@example.com",
+  "name": "Johnsadsadasd Wick",
+  "username": "johnWick",
+  "gender": "Male",
+  "profissao": "Engineer",
+  "contacto": "123456789",
+  "idade": 30,
+  "password": "securepassword"
+}
+
