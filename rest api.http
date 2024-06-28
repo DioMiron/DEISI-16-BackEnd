@@ -61,7 +61,7 @@ Authorization: Basic admin 123
 ## OK!
 
 ### /api/formacao
-GET {{host}}/api/formacoes/searchId/2
+GET {{host}}/api/formacoes/searchId/1
 x-api-token: 12345
 Authorization: Basic admin 123
 ## OK!
@@ -83,6 +83,19 @@ GET {{host}}/api/comentarios/listOfUser/1
 x-api-token: 12345
 Authorization: Basic admin 123
 ## OK!
+
+### /api/formacoes
+GET {{host}}/api/formacoes/searchByAuthor/admin
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
+### /api/formacoes
+GET {{host}}/api/competencias/searchByAuthor/admin
+x-api-token: 12345
+Authorization: Basic admin 123
+## OK!
+
 
 ## Add ---------------------------------------------------------
 ### /api/userParticular

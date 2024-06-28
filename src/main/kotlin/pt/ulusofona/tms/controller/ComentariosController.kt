@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*
 import pt.ulusofona.tms.repository.ComentariosRepository
 import pt.ulusofona.tms.repository.UtilizadorParticularRepository
 import pt.ulusofona.tms.dao.Comentarios
-import pt.ulusofona.tms.dao.FormacaoAcademica
 import pt.ulusofona.tms.repository.UtilizadorEmpresarialRepository
 import pt.ulusofona.tms.request.CreateNewComentariosRequest
 
