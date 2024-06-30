@@ -37,7 +37,7 @@ Authorization: Basic admin 123
 ## OK!
 
 ### /api/utilizadorparcial
-DELETE {{host}}/api/userParticular/delete/byUsername/admin
+DELETE {{host}}/api/userParticular/delete/byUsername/johnWick
 x-api-token: 12345
 Authorization: Basic admin 123
 
@@ -110,7 +110,7 @@ Authorization: Basic admin 123
   "email": "JohnWick@example.com",
   "name": "John Wick",
   "username": "johnWick",
-  "gender": "Male",
+  "gender": "male",
   "profissao": "Engineer",
   "contacto": "123456789",
   "idade": 30,
