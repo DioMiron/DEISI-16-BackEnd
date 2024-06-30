@@ -23,7 +23,6 @@ class DataLoader(
     val utilizadorEmpresarialRepository: UtilizadorEmpresarialRepository,
     private val propostasRepository: PropostasRepository,
     private val comentariosRepository: ComentariosRepository,
-    private val formacaoController: FormacaoController,
     private val formacaoRepository: FormacaoRepository,
     private val experienciaRepository: ExperienciaRepository,
     private val competenciasRepository: CompetenciasRepository,
@@ -62,7 +61,7 @@ class DataLoader(
         if (utilizadorParticularRepository.findAll().isEmpty()) {
             logger.info("No Normal User, let´s create an normal user")
             utilizadorParticularRepository.save(UtilizadorParticular(
-                id = 1,
+                id = 0,
                 name = "admin",
                 email = "admin@admin.pt",
                 username = "admin",
@@ -80,7 +79,7 @@ class DataLoader(
         if (utilizadorEmpresarialRepository.findAll().isEmpty()) {
             logger.info("No Business User, let´s create an business user")
             utilizadorEmpresarialRepository.save(UtilizadorEmpresarial(
-                id = 1,
+                id = 0,
                 name = "Rui Ribeiro",
                 email = "RuiRibeiro@admin.pt",
                 user = "Rui",
@@ -99,12 +98,12 @@ class DataLoader(
         if (formacaoRepository.findAll().isEmpty()) {
             logger.info("No Formation, let´s create a Job")
             formacaoRepository.save(FormacaoAcademica(
-                id = 1,
+                id = 0,
                 nome = "Python",
                 tipoformacao = "Técnica",
                 instituto = "Tecnico",
                 duracao = "10 meses",
-                author = utilizadorParticularRepository.findUtilizadorParticularById(1),
+                author = utilizadorParticularRepository.findUtilizadorParticularByUsername("admin"),
             )
             )
         } else {
@@ -115,7 +114,7 @@ class DataLoader(
         if (comentariosRepository.findAll().isEmpty()) {
             logger.info("No Comments, let´s create a Job")
             comentariosRepository.save(Comentarios(
-                id = 1,
+                id = 0,
                 author = "admin",
                 data = "22/01/2024",
                 comentario = "Que te passa uma polo",
@@ -129,10 +128,10 @@ class DataLoader(
         if (propostasRepository.findAll().isEmpty()) {
             logger.info("No Jobs, let´s create a Job")
             propostasRepository.save(Propostas(
-                id = 1,
+                id = 0,
                 area = "Engenharia Informática",
                 descricao = "Procuramos alguém competente e trabalhador.",
-                author = utilizadorEmpresarialRepository.findUtilizadorEmpresarialById(1),
+                author = utilizadorEmpresarialRepository.findUtilizadorEmpresarialByUser("Rui"),
                 candidate = null,
             )
             )
@@ -144,12 +143,12 @@ class DataLoader(
         if (experienciaRepository.findAll().isEmpty()) {
             logger.info("No Experiences, let´s create a Job")
             experienciaRepository.save(ExperienciaLaboral(
-                id = 1,
+                id = 0,
                 cidade = "Lisboa",
                 profissao = "Engenheiro Informático",
                 nomeEmpresa = "Auren",
                 duracaoDaExperiencia = "3 meses",
-                author = utilizadorParticularRepository.findUtilizadorParticularById(1),
+                author = utilizadorParticularRepository.findUtilizadorParticularByUsername("admin"),
             )
             )
         } else {
@@ -160,10 +159,10 @@ class DataLoader(
         if (competenciasRepository.findAll().isEmpty()) {
             logger.info("No skills, let´s create a Job")
             competenciasRepository.save(Competencias (
-                id = 1,
+                id = 0,
                 nome = "Python",
                 type = "Technical Skill",
-                author = utilizadorParticularRepository.findUtilizadorParticularById(1),
+                author = utilizadorParticularRepository.findUtilizadorParticularByUsername("admin"),
             )
             )
         } else {

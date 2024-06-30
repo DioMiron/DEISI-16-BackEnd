@@ -5,13 +5,18 @@ import org.springframework.http.ResponseEntity
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
 import pt.ulusofona.tms.dao.UtilizadorParticular
-import pt.ulusofona.tms.repository.UtilizadorParticularRepository
+import pt.ulusofona.tms.repository.*
 import pt.ulusofona.tms.request.*
 
 @RestController
 @RequestMapping("/api/userParticular")
 class UtilizadorParticularController(
     val utilizadorParticularRepository: UtilizadorParticularRepository,
+    val formacaoRepository: FormacaoRepository,
+    val experienciaRepository: ExperienciaRepository,
+    val competenciasRepository: CompetenciasRepository,
+    val propostasRepository: PropostasRepository,
+    val comentariosRepository: ComentariosRepository
 ) {
 
     @GetMapping("/list", produces = ["application/json;charset=UTF-8"])
@@ -99,7 +104,22 @@ class UtilizadorParticularController(
         val user = utilizadorParticularRepository.findUtilizadorParticularByUsername(username)
 
         return if (user != null) {
+            val skills = formacaoRepository.findFormacaoByAuthor(user)
+            val competencias = competenciasRepository.findCompetenciasByAuthor(user)
+            val experiencias = experienciaRepository.findExperienciaByAuthor(user)
+            val propostas = propostasRepository.findByCandidate(user)
+            val comentarios = comentariosRepository.findCommentByAuthor(username)
+
+            // Delete associated entities
+            formacaoRepository.deleteAll(skills)
+            competenciasRepository.deleteAll(competencias)
+            experienciaRepository.deleteAll(experiencias)
+            propostasRepository.deleteAll(propostas)
+            comentariosRepository.deleteAll(comentarios)
+
+            // Delete the user
             utilizadorParticularRepository.delete(user)
+
             ResponseEntity("Utilizador apagado com sucesso", HttpStatus.OK)
         } else {
             ResponseEntity("Utilizador não encontrado", HttpStatus.NOT_FOUND)

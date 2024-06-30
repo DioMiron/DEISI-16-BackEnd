@@ -37,7 +37,7 @@ Authorization: Basic admin 123
 ## OK!
 
 ### /api/utilizadorparcial
-DELETE {{host}}/api/userParticular/delete/byUsername/johnWick
+DELETE {{host}}/api/userParticular/delete/byUsername/admin
 x-api-token: 12345
 Authorization: Basic admin 123
 

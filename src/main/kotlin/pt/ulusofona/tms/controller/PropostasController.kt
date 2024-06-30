@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
 import pt.ulusofona.tms.dao.Propostas
+import pt.ulusofona.tms.dao.UtilizadorParticular
 import pt.ulusofona.tms.repository.PropostasRepository
 import pt.ulusofona.tms.request.CreatePropostaRequest
 import pt.ulusofona.tms.request.SearchPropostasRequest
@@ -23,6 +24,17 @@ class PropostasController(private val propostasRepository: PropostasRepository) 
         val proposta = propostasRepository.findJobById(id)
         return if (proposta != null) {
             ResponseEntity(proposta, HttpStatus.OK)
+        } else {
+            ResponseEntity("Proposta not found", HttpStatus.NOT_FOUND)
+        }
+    }
+
+    // Get by id.
+    @GetMapping("/searchByCandidate/{candidate}")
+    fun getPropostaByCandidate(@PathVariable candidate: UtilizadorParticular): ResponseEntity<Any> {
+        val candidateSearch = propostasRepository.findByCandidate(candidate)
+        return if (candidateSearch != null) {
+            ResponseEntity(candidateSearch, HttpStatus.OK)
         } else {
             ResponseEntity("Proposta not found", HttpStatus.NOT_FOUND)
         }

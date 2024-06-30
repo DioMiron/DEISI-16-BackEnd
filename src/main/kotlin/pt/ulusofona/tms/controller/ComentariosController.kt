@@ -50,6 +50,34 @@ class ComentariosController(
         return ResponseEntity("Utilizador não encontrado", HttpStatus.NOT_FOUND)
     }
 
+    // Search by id
+    @GetMapping("/getByUsername/{username}")
+    fun getCommentsOfUserByUsername(@PathVariable username: String): ResponseEntity<out Any> {
+        val userParticularOptional = utilizadorParticularRepository.findUtilizadorParticularByUsername(username)
+        if (userParticularOptional != null) {
+            val usernameNormal = userParticularOptional.username
+
+            // Retrieve comments where author equals the username
+            val comments = comentariosRepository.findCommentByAuthor(usernameNormal)
+
+            return ResponseEntity(comments, HttpStatus.OK)
+        }
+
+        // If not found in UtilizadorParticularRepository, check in UtilizadorEmpresarialRepository
+        val userEmpresaOptional = utilizadorEmpresarialRepository.findUtilizadorEmpresarialByUser(username)
+        if (userEmpresaOptional != null) {
+            val usernameBusiness = userEmpresaOptional.user
+
+            // Retrieve comments where author equals the username
+            val comments = comentariosRepository.findCommentByAuthor(usernameBusiness)
+
+            return ResponseEntity(comments, HttpStatus.OK)
+        }
+
+        // If user is not found in either repository
+        return ResponseEntity("Utilizador não encontrado", HttpStatus.NOT_FOUND)
+    }
+
     // Creates a new Comment
     @PostMapping("/createComment")
     fun createCommentForUser(@RequestBody comment: CreateNewComentariosRequest): ResponseEntity<Any> {

@@ -10,7 +10,7 @@ data class Comentarios (
     @Column(name = "id", nullable = false)
     val id: Int = 0,
 
-    @Column(name = "author", nullable = false)
+    @Column(name = "author", nullable = true)
     var author: String = "",
 
     @Column(name = "data", nullable = false)
