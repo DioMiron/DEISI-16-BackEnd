@@ -86,16 +86,28 @@ class UtilizadorParticularController(
 
     @DeleteMapping("/delete/byId/{id}")
     fun deleteUserById(@PathVariable id: Int): ResponseEntity<Any> {
-        return try {
-            val user = utilizadorParticularRepository.findById(id)
-            if (user.isPresent) {
-                utilizadorParticularRepository.delete(user.get())
-                ResponseEntity.ok("Utilizador apagado com sucesso")
-            } else {
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utilizador não encontrado")
-            }
-        } catch (e: Exception) {
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error. Please try again later.")
+        val user = utilizadorParticularRepository.findUtilizadorParticularById(id)
+
+        return if (user != null) {
+            val skills = formacaoRepository.findFormacaoByAuthor(user)
+            val competencias = competenciasRepository.findCompetenciasByAuthor(user)
+            val experiencias = experienciaRepository.findExperienciaByAuthor(user)
+            val propostas = propostasRepository.findByCandidate(user)
+            val comentarios = comentariosRepository.findCommentByAuthor(user.username)
+
+            // Delete associated entities
+            formacaoRepository.deleteAll(skills)
+            competenciasRepository.deleteAll(competencias)
+            experienciaRepository.deleteAll(experiencias)
+            propostasRepository.deleteAll(propostas)
+            comentariosRepository.deleteAll(comentarios)
+
+            // Delete the user
+            utilizadorParticularRepository.delete(user)
+
+            ResponseEntity("Utilizador apagado com sucesso", HttpStatus.OK)
+        } else {
+            ResponseEntity("Utilizador não encontrado", HttpStatus.NOT_FOUND)
         }
     }
 

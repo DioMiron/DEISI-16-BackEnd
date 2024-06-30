@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
 import pt.ulusofona.tms.dao.UtilizadorEmpresarial
+import pt.ulusofona.tms.repository.ComentariosRepository
+import pt.ulusofona.tms.repository.PropostasRepository
 import pt.ulusofona.tms.repository.UtilizadorEmpresarialRepository
 import pt.ulusofona.tms.request.*
 
@@ -13,7 +15,9 @@ import pt.ulusofona.tms.request.*
 @RequestMapping("/api/businessUsers")
 class UtilizadorEmpresarialController(
     private val utilizadorEmpresarialRepository: UtilizadorEmpresarialRepository,
-    private val utilizadorEmpresaRepository: UtilizadorEmpresarialRepository
+    private val utilizadorEmpresaRepository: UtilizadorEmpresarialRepository,
+    private val comentariosRepository: ComentariosRepository,
+    private val propostasRepository: PropostasRepository
 ) {
 
     // Gives all the normal users
@@ -110,16 +114,28 @@ class UtilizadorEmpresarialController(
     // Delete User by username
     @DeleteMapping("/deleteByUserName/{username}")
     fun deleteBusinessUserByUsername(@PathVariable username: String): ResponseEntity<Any> {
-
         val user = utilizadorEmpresarialRepository.findUtilizadorEmpresarialByUser(username)
 
         return if (user != null) {
+            // Delete comments by the user
+            comentariosRepository.findCommentByAuthor(username).forEach { comment ->
+                comentariosRepository.delete(comment)
+            }
+
+            // Delete proposals by the user
+            propostasRepository.findByAuthor(user).forEach { proposta ->
+                propostasRepository.delete(proposta)
+            }
+
+            // Delete the user itself
             utilizadorEmpresarialRepository.delete(user)
+
             ResponseEntity("Utilizador apagado com sucesso", HttpStatus.OK)
         } else {
             ResponseEntity("Utilizador não encontrado", HttpStatus.NOT_FOUND)
         }
     }
+
 
     // Edit User
     @PutMapping("/editBusinessUser")

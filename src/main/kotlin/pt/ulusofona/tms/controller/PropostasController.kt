@@ -5,15 +5,20 @@ import org.springframework.http.ResponseEntity
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
 import pt.ulusofona.tms.dao.Propostas
+import pt.ulusofona.tms.dao.UtilizadorEmpresarial
 import pt.ulusofona.tms.dao.UtilizadorParticular
 import pt.ulusofona.tms.repository.PropostasRepository
+import pt.ulusofona.tms.repository.UtilizadorEmpresarialRepository
 import pt.ulusofona.tms.request.CreatePropostaRequest
 import pt.ulusofona.tms.request.SearchPropostasRequest
 import pt.ulusofona.tms.request.UpdatePropostaRequest
 
 @RestController
 @RequestMapping("/api/propostas")
-class PropostasController(private val propostasRepository: PropostasRepository) {
+class PropostasController(
+    private val propostasRepository: PropostasRepository,
+    private val utilizadorEmpresarialRepository: UtilizadorEmpresarialRepository
+) {
     // Gives all the Jobs
     @GetMapping("/list", produces = ["application/json;charset=UTF-8"])
     fun list(model: ModelMap): List<Propostas> = propostasRepository.findAll()
@@ -35,6 +40,17 @@ class PropostasController(private val propostasRepository: PropostasRepository) 
         val candidateSearch = propostasRepository.findByCandidate(candidate)
         return if (candidateSearch != null) {
             ResponseEntity(candidateSearch, HttpStatus.OK)
+        } else {
+            ResponseEntity("Proposta not found", HttpStatus.NOT_FOUND)
+        }
+    }
+
+    // Get by id.
+    @GetMapping("/searchByCandidate/{author}")
+    fun getPropostasByAuthor(@PathVariable author: UtilizadorEmpresarial): ResponseEntity<Any> {
+        val userSearch = propostasRepository.findByAuthor(author)
+        return if (userSearch != null) {
+            ResponseEntity(userSearch, HttpStatus.OK)
         } else {
             ResponseEntity("Proposta not found", HttpStatus.NOT_FOUND)
         }
